@@ -295,6 +295,7 @@
 
   .hero-text p {
     font-size: 18px;
+    
   }
 
   .cards {
@@ -308,10 +309,10 @@
   }
 
   .project-list {
-    grid-template-columns: 1fr;
-    padding: 20px;
-    align-items: center;
-  }
+    
+    padding-left: 40px;
+    
+     }
 
   .project-card {
     width: 90%;
