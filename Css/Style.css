@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -160,7 +161,6 @@ a {
 .project-list {
   display: flex;
   flex-wrap: wrap;
-  max-width: 1200px;
   gap: 20px;
   padding: 40px 20px;
   margin: auto;
@@ -168,6 +168,8 @@ a {
 }
 
 .project-card {
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
   width: 320px;
   border-radius: 12px;
@@ -252,8 +254,7 @@ footer {
   font-size: 1.2rem;
 }
 
-/* ---------- RESPONSIVIDADE ---------- */
-
+/* RESPONSIVIDADE AJUSTADA */
 @media (max-width: 768px) {
   .top-nav {
     flex-direction: column;
@@ -275,20 +276,26 @@ footer {
   }
 
   .profile-pic {
-    width: 200px;
-    height: 200px;
+    display: none; /* Oculta imagem no mobile */
+  }
+
+  .cards {
+    flex-direction: column; /* Coloca os cards um abaixo do outro */
+    align-items: center;
   }
 
   .card {
     width: 90%;
   }
 
-  .project-card {
-    width: 90%;
+  .project-list {
+    flex-direction: column; /* Coloca os projetos um abaixo do outro */
+    align-items: center;
+    padding: 20px;
   }
 
-  .project-list {
-    padding: 20px;
+  .project-card {
+    width: 90%;
   }
 }
 
@@ -324,4 +331,26 @@ footer {
   .project-list p {
     font-size: 12px;
   }
+}
+
+.project-card {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+  background: white;
+  color: #000;
+
+}
+
+.project-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  text-align: center;
 }
