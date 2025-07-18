@@ -14,7 +14,7 @@
 
   a {
     text-decoration: none;
-    color: #007bff;
+    color: #00c4cc;
   }
 
   .top-nav {
@@ -42,28 +42,29 @@
   }
 
   .hero-text h1 {
-    font-size: 48px;
+    font-size: 36px;
     margin-bottom: 15px;
   }
 
   .hero-text p {
-    font-size: 24px;
+    font-size: 18px;
     max-width: 550px;
     margin-bottom: 15px;
   }
 
   .destaque {
-    color: #3a66ff;
+    color: #00c4cc;
   }
 
   .btn {
     display: inline-block;
     margin-top: 15px;
-    background: #3a66ff;
+    background: #00c4cc;
     color: white;
-    padding: 16px 24px;
+    padding: 16px 16px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 14px;
+    margin-top: 28px;
   }
 
   .profile-pic {
@@ -81,9 +82,9 @@
   }
 
   .habilidades h2 {
-    color: #3a66ff;
+    color: #00c4cc;
     padding: 10px;
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .habilidades p {
@@ -112,7 +113,7 @@
   }
 
   .card h3 {
-    color: #5b7efd;
+    color: #00c4cc;
     padding: 10px;
     font-size: 20px;
     font-weight: 700;
@@ -125,9 +126,10 @@
   }
 
   .ferramentas {
-    color: #3a66ff;
+    color: #00c4cc;
     padding: 10px;
     font-size: 20px;
+    margin-bottom: 20px;
   }
 
   .icons {
@@ -157,23 +159,17 @@
     object-fit: contain;
   }
 
-  .project-list {
-    display: flex;
-    flex-wrap: wrap;
-    
-    gap: 20px;
-    padding: 40px 20px;
-    margin: auto;
-    justify-content: center;
-  }
-
-  .project-list {
+ .project-list {
   display: flex;
   flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 8px;
+  margin: auto;
   justify-content: center;
- 
-  
 }
+
+  
+
 
 .project-card {
   display: flex;
@@ -185,6 +181,7 @@
   background: white;
   color: #000;
   padding-bottom: 20px;
+  margin-top: 20px;
   
   
 }
@@ -197,7 +194,7 @@
 }
 
 .projetos h2 {
-  color: #3a66ff;
+  color: #00c4cc;
   padding: 10px;
   font-size: 30px;
 }
@@ -217,7 +214,7 @@
   text-align: center;
 }
   .contato h2 {
-    color: #3a66ff;
+    color: #00c4cc;
     padding: 8px;
     font-size: 30px;
   }
@@ -243,7 +240,7 @@
   }
 
   button {
-    background: #3a66ff;
+    background: #00c4cc;
     color: white;
     border: none;
     padding: 12px;
@@ -398,3 +395,43 @@
     padding: 0 10px;
   }
 }
+
+
+
+/*  CSS Projetos */
+
+.banner {
+
+  max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 60px 20px;
+    
+}
+
+.banner-texto h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+  color: #4F4F4F;
+  gap: 8px;
+}
+
+.banner-texto p {
+  font-size: 18px;
+  max-width: 550px;
+  margin-bottom: 15px;
+  color: #4F4F4F
+}
+
+.botao {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00c4cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+
