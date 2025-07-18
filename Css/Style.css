@@ -306,11 +306,9 @@
   }
 
   .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    align-items: center;
+  grid-template-columns: 1fr;
+  padding: 20px;
+  place-items: center;
   }
 
   .project-card {
@@ -375,19 +373,10 @@
   }
 
   .project-list {
-   
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    align-items: center;
+  grid-template-columns: 1fr;
+  padding: 20px;
+  place-items: center;
   }
-
-  .project-card {
-    width: 90%;
-  }
-}
- 
 
   .project-card {
     width: 90%;
@@ -405,6 +394,7 @@
   form {
     padding: 0 10px;
   }
+}
 
 
 
@@ -444,13 +434,4 @@
   font-size: 14px;
 }
 
-
-@media (max-width: 768px) {
-  /* ... outros estilos ... */
-
-
-  .project-card {
-    width: 90%;
-  }
-}
 
