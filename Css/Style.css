@@ -302,7 +302,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  height: 400px;
+  height: 350px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -314,7 +314,7 @@ footer {
 
 .project-card img {
   width: 100%;
-  height: auto;
+  height: 200px;
   object-fit: cover;
   display: block;
   text-align: center;
@@ -371,7 +371,7 @@ footer {
 
 .project-card img {
   width: 100%;
-  height: auto;
+  height: 200px;
   object-fit: cover;
   display: block;
   text-align: center;
