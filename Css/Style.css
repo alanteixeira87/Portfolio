@@ -331,3 +331,70 @@
     padding: 0 10px;
   }
 }
+
+
+  /* ========================= */
+@media (max-width: 480px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .top-nav nav {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-pic {
+    display: none;
+  }
+
+  .hero-text h1 {
+    font-size: 32px;
+  }
+
+  .hero-text p {
+    font-size: 18px;
+    
+  }
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 340px;
+  }
+
+  .project-list {
+  grid-template-columns: 1fr;
+  padding: 20px;
+  place-items: center;
+  }
+
+  .project-card {
+    width: 90%;
+  }
+
+  .icons {
+    gap: 16px;
+  }
+
+  .icons span {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  form {
+    padding: 0 10px;
+  }
+}
