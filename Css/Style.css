@@ -302,6 +302,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  width: 420px;
   height: 350px;
   border-radius: 12px;
   overflow: hidden;
