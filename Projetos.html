@@ -128,16 +128,15 @@
   <footer>
     <p>© 2025 Alan Teixeira - UX/UI Designer</p>
   </footer>
+    <script>
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('.menu');
 
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('open');
+      });
+    </script>
 </body>
 </html>
 
 
-<script>
-  const toggle = document.querySelector('.menu-toggle');
-  const menu = document.querySelector('.menu');
-
-  toggle.addEventListener('click', () => {
-    menu.classList.toggle('open');
-  });
-</script>
