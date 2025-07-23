@@ -34,10 +34,10 @@
   
 .menu-toggle {
   display: none;
-  font-size: 28px;
   background: none;
   border: none;
   cursor: pointer;
+  padding: 10px;
 }
   .hero {
     max-width: 1200px;
@@ -446,12 +446,7 @@
 
 /* Estilo responsivo */
 @media (max-width: 768px ) {
-  .menu-toggle {
-    display: block;
-    color: #333;
-  }
-
-  .menu {
+.menu {
     display: none;
     flex-direction: column;
     gap: 10px;
@@ -472,12 +467,7 @@
 
 /* Estilo responsivo */
 @media (max-width: 480px ) {
-  .menu-toggle {
-    display: block;
-    color: #333;
-  }
-
-  .menu {
+.menu {
     display: none;
     flex-direction: column;
     gap: 10px;
