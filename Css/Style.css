@@ -31,6 +31,14 @@
     color: #333;
   }
 
+  
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
   .hero {
     max-width: 1200px;
     margin: auto;
@@ -435,3 +443,28 @@
 }
 
 
+
+/* Estilo responsivo */
+@media (max-width: 768p and 480p) {
+  .menu-toggle {
+    display: block;
+    color: #333;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 70px;
+    right: 30px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+}

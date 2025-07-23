@@ -11,6 +11,10 @@
   <!-- Cabeçalho de navegação -->
   <header class="top-nav">
     <img src="IMG/Logo/AT.png" alt="Logo Alan Teixeira">
+
+    <!-- Botão de menu hamburguer -->
+    <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
+    
     <nav>
       <a href="../index.html#sobre">Sobre mim</a>
       <a href="../index.html#skills">Skills</a>
@@ -122,3 +126,13 @@
 
 </body>
 </html>
+
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('open');
+  });
+</script>
