@@ -39,6 +39,10 @@
   cursor: pointer;
   padding: 10px;
 }
+
+.menu-toggle svg {
+  fill: #333;
+}
   .hero {
     max-width: 1200px;
     margin: auto;
