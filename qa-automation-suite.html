@@ -1,26 +1,651 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QA Automation Suite — Case Study | Alan Teixeira</title><meta name="description" content="Como uma necessidade de gerar JSON evoluiu para uma suíte de suporte à execução de testes em Open Finance."><meta name="theme-color" content="#f5f3ee"><meta property="og:type" content="article"><meta property="og:title" content="QA Automation Suite — Case Study | Alan Teixeira"><meta property="og:description" content="De um gerador de JSON para uma suíte de suporte à execução de testes."><meta property="og:image" content="IMG/assets/Gerador%20de%20payload.png"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="IMG/Logo/AT.png" type="image/png"><link rel="stylesheet" href="Css/Style.css"><script src="js/site.js" defer></script></head><body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a><header class="site-header"><a class="wordmark" href="index.html">Alan Teixeira</a><nav id="nav" class="site-nav" aria-label="Navegação do case"><a href="#contexto">Contexto</a><a href="#modulos">Módulos</a><a href="#resultados">Resultados</a></nav><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></header>
-<main id="conteudo"><section class="case-hero shell"><a class="back-link" href="index.html#projetos">← Voltar para projetos</a><p class="eyebrow">Case study · Open Finance / QA</p><h1>De um gerador de JSON para uma suíte de suporte à execução de testes.</h1><p class="case-lede">A solução começou atendendo uma necessidade específica e evoluiu conforme novos problemas eram observados durante o processo de execução. Hoje, a ferramenta reúne a geração de payloads, a organização de dados PF e PJ, a padronização de nomenclaturas e relatórios e o acompanhamento de testes de longa duração em Open Finance.</p><div class="case-cover"><img src="IMG/assets/Gerador%20de%20payload.png" width="1910" height="1372" alt="Interface do gerador de JSON com dados PF e PJ, contexto da instituição, teste e área de payload"></div><dl class="meta-grid"><div><dt>Produto</dt><dd>QA Automation Suite</dd></div><div><dt>Contexto</dt><dd>Open Finance / QA</dd></div><div><dt>Atuação</dt><dd>Product Design, UX/UI, requisitos, regras de negócio, prototipação, implementação e validação</dd></div><div><dt>Tipo</dt><dd>Ferramenta operacional interna</dd></div></dl></section>
-<section id="contexto" class="section shell narrative"><p class="eyebrow">O contexto</p><h2>O problema era maior do que gerar JSON.</h2><p>A execução reúne instituição, AS-ID, segmento, dados PF/PJ, tipo de teste, payload, Test ou Retest, ciclo, evidências, cronogramas e relatórios. Cada informação isolada parece simples; conectadas, formam uma jornada operacional com dependências e conferências.</p><h3>Um processo distribuído em várias pequenas decisões</h3><p>Localizar informações, alternar contextos e nomear resultados amplia a necessidade de consistência. A oportunidade estava em incorporar parte desse conhecimento à própria interface.</p><div class="flow" aria-label="Fluxo anterior"><span>Identificar teste</span><i>→</i><span>Localizar informações</span><i>→</i><span>Conferir instituição</span><i>→</i><span>Selecionar dados</span><i>→</i><span>Gerar payload</span><i>→</i><span>Executar</span><i>→</i><span>Evidenciar</span><i>→</i><span>Registrar</span><i>→</i><span>Acompanhar</span></div></section>
-<section class="thesis"><div class="shell"><p class="eyebrow">Hipótese de produto</p><blockquote>E se o QA informasse o contexto da execução e a ferramenta cuidasse das regras?</blockquote></div></section>
-<section class="section shell"><p class="eyebrow">Princípios da solução</p><h2>Padronizar → automatizar → validar</h2><ol class="pillars"><li><strong>Padronizar</strong>Payloads, logs, nomenclaturas, evidências e relatórios passam a compartilhar uma estrutura.</li><li><strong>Automatizar</strong>Relações, datas, nomes e continuidades reduzem operações repetitivas quando documentadas.</li><li><strong>Validar</strong>Dados PF/PJ e o contexto de Test, Retest e ciclo são tratados como partes da mesma execução.</li></ol></section>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>QA Automation Suite — Case Study | Alan Teixeira</title>
+    <meta
+      name="description"
+      content="Como uma necessidade de gerar JSON evoluiu para uma suíte de suporte à execução de testes em Open Finance."
+    />
+    <meta name="theme-color" content="#f5f3ee" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="QA Automation Suite — Case Study | Alan Teixeira"
+    />
+    <meta
+      property="og:description"
+      content="De um gerador de JSON para uma suíte de suporte à execução de testes."
+    />
+    <meta property="og:image" content="IMG/assets/Gerador%20de%20payload.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="IMG/Logo/AT.png" type="image/png" />
+    <link rel="stylesheet" href="Css/Style.css?v=20260817-2" />
+    <script src="js/site.js?v=20260817-2" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <header class="site-header">
+      <a class="wordmark" href="index.html">Alan Teixeira</a>
+      <nav id="nav" class="site-nav" aria-label="Navegação do case">
+        <a href="#contexto">Contexto</a><a href="#modulos">Módulos</a
+        ><a href="#resultados">Resultados</a>
+      </nav>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav"
+      >
+        Menu
+      </button>
+    </header>
+    <main id="conteudo">
+      <section class="case-hero shell">
+        <a class="back-link" href="index.html#projetos"
+          >← Voltar para projetos</a
+        >
+        <p class="eyebrow">Case study · Open Finance / QA</p>
+        <h1>
+          De um gerador de JSON para uma suíte de suporte à execução de testes.
+        </h1>
+        <p class="case-lede">
+          A solução começou atendendo uma necessidade específica e evoluiu
+          conforme novos problemas eram observados durante o processo de
+          execução. Hoje, a ferramenta reúne a geração de payloads, a
+          organização de dados PF e PJ, a padronização de nomenclaturas e
+          relatórios e o acompanhamento de testes de longa duração em Open
+          Finance.
+        </p>
+        <div class="case-cover">
+          <img
+            src="IMG/assets/Gerador%20de%20payload.png"
+            width="1910"
+            height="1372"
+            alt="Interface do gerador de JSON com dados PF e PJ, contexto da instituição, teste e área de payload"
+          />
+        </div>
+        <dl class="meta-grid">
+          <div>
+            <dt>Produto</dt>
+            <dd>QA Automation Suite</dd>
+          </div>
+          <div>
+            <dt>Contexto</dt>
+            <dd>Open Finance / QA</dd>
+          </div>
+          <div>
+            <dt>Atuação</dt>
+            <dd>
+              Product Design, UX/UI, requisitos, regras de negócio,
+              prototipação, implementação e validação
+            </dd>
+          </div>
+          <div>
+            <dt>Tipo</dt>
+            <dd>Ferramenta operacional interna</dd>
+          </div>
+        </dl>
+      </section>
+      <section id="contexto" class="section shell narrative">
+        <p class="eyebrow">O contexto</p>
+        <h2>O problema era maior do que gerar JSON.</h2>
+        <p>
+          A execução reúne instituição, AS-ID, segmento, dados PF/PJ, tipo de
+          teste, payload, Test ou Retest, ciclo, evidências, cronogramas e
+          relatórios. Cada informação isolada parece simples; conectadas, formam
+          uma jornada operacional com dependências e conferências.
+        </p>
+        <h3>Um processo distribuído em várias pequenas decisões</h3>
+        <p>
+          Localizar informações, alternar contextos e nomear resultados amplia a
+          necessidade de consistência. A oportunidade estava em incorporar parte
+          desse conhecimento à própria interface.
+        </p>
+        <div class="flow" aria-label="Fluxo anterior">
+          <span>Identificar teste</span><i>→</i
+          ><span>Localizar informações</span><i>→</i
+          ><span>Conferir instituição</span><i>→</i><span>Selecionar dados</span
+          ><i>→</i><span>Gerar payload</span><i>→</i><span>Executar</span
+          ><i>→</i><span>Evidenciar</span><i>→</i><span>Registrar</span><i>→</i
+          ><span>Acompanhar</span>
+        </div>
+      </section>
+      <section class="thesis">
+        <div class="shell">
+          <p class="eyebrow">Hipótese de produto</p>
+          <blockquote>
+            E se o QA informasse o contexto da execução e a ferramenta cuidasse
+            das regras?
+          </blockquote>
+        </div>
+      </section>
+      <section class="section shell">
+        <p class="eyebrow">Princípios da solução</p>
+        <h2>Padronizar → automatizar → validar</h2>
+        <ol class="pillars">
+          <li>
+            <strong>Padronizar</strong>Payloads, logs, nomenclaturas, evidências
+            e relatórios passam a compartilhar uma estrutura.
+          </li>
+          <li>
+            <strong>Automatizar</strong>Relações, datas, nomes e continuidades
+            reduzem operações repetitivas quando documentadas.
+          </li>
+          <li>
+            <strong>Validar</strong>Dados PF/PJ e o contexto de Test, Retest e
+            ciclo são tratados como partes da mesma execução.
+          </li>
+        </ol>
+      </section>
 
-<div id="modulos">
-<section class="module shell"><div class="module-heading"><p class="index">01 / 04</p><div><p class="eyebrow">Gerador de payloads</p><h2>Transformando regras técnicas em uma interface utilizável</h2><p>Dados da pessoa, instituição e teste são reunidos antes da geração. O tipo de teste deixa de ser apenas uma seleção: carrega API, versão, jornada e contexto do payload.</p></div></div>
-<figure class="image-explorer" data-image-explorer data-title="Gerador de payloads" data-clean="IMG/assets/Gerador%20de%20payload.png" data-anatomy="IMG/assets/Gerador%20de%20payload%20%20-%20anatomia%20do%20projeto.png" data-clean-alt="Interface do gerador de JSON com dados PF e PJ, instituição, execução e payload" data-anatomy-alt="A mesma interface do gerador de JSON com 14 anotações numeradas explicadas abaixo" style="--image-ratio:1.49"><div class="explorer-toolbar"><div class="view-switch" role="group" aria-label="Visualização do gerador"><button type="button" data-view="interface" aria-pressed="true">Interface</button><button type="button" data-view="anatomy" aria-pressed="false" hidden>Anatomia da solução</button></div><button class="expand-button" type="button">Ampliar ↗</button></div><div class="explorer-frame"><img class="explorer-image" src="IMG/assets/Gerador%20de%20payload.png" width="1910" height="1372" alt="Interface do gerador de JSON com dados PF e PJ, instituição, execução e payload" loading="lazy"></div><figcaption><button class="details-toggle" type="button" aria-expanded="false">Explorar os 14 pontos <span aria-hidden="true">+</span></button><div class="decision-groups" hidden><article class="decision-group"><h3>Dados de quem participa do teste</h3><ul><li><span class="point">01–03</span>O bloco PF mantém nome, CPF e dados bancários no mesmo contexto.</li><li><span class="point">04–06</span>O bloco PJ separa empresa, CNPJ e dados bancários sem misturar naturezas distintas.</li></ul></article><article class="decision-group"><h3>Instituição e execução trabalham juntas</h3><ul><li><span class="point">07–09</span>Marca, AS-ID e segmento estruturam o contexto da instituição.</li><li><span class="point">10–12</span>Tipo de payload, Test/Retest e ciclo descrevem a execução antes de gerar.</li></ul></article><article class="decision-group"><h3>Continuidade da jornada</h3><ul><li><span class="point">13</span>Gerar e consultar orientações permanecem próximos da configuração.</li><li><span class="point">14</span>O payload preparado segue para a execução na FVP.</li></ul></article></div></figcaption></figure><div class="flow"><span>Configurar</span><i>→</i><span>Gerar</span><i>→</i><span>Revisar</span><i>→</i><span>Copiar</span><i>→</i><span>Executar</span></div></section>
+      <div id="modulos">
+        <section class="module shell">
+          <div class="module-heading">
+            <p class="index">01 / 04</p>
+            <div>
+              <p class="eyebrow">Gerador de payloads</p>
+              <h2>Transformando regras técnicas em uma interface utilizável</h2>
+              <p>
+                Dados da pessoa, instituição e teste são reunidos antes da
+                geração. O tipo de teste deixa de ser apenas uma seleção:
+                carrega API, versão, jornada e contexto do payload.
+              </p>
+            </div>
+          </div>
+          <figure
+            class="image-explorer"
+            data-image-explorer
+            data-title="Gerador de payloads"
+            data-clean="IMG/assets/Gerador%20de%20payload.png"
+            data-anatomy="IMG/assets/Gerador%20de%20payload%20%20-%20anatomia%20do%20projeto.png"
+            data-clean-alt="Interface do gerador de JSON com dados PF e PJ, instituição, execução e payload"
+            data-anatomy-alt="A mesma interface do gerador de JSON com 14 anotações numeradas explicadas abaixo"
+            style="--image-ratio: 1.49"
+          >
+            <div class="explorer-toolbar">
+              <div
+                class="view-switch"
+                role="group"
+                aria-label="Visualização do gerador"
+              >
+                <button type="button" data-view="interface" aria-pressed="true">
+                  Interface</button
+                ><button
+                  type="button"
+                  data-view="anatomy"
+                  aria-pressed="false"
+                  hidden
+                >
+                  Anatomia da solução
+                </button>
+              </div>
+              <button class="expand-button" type="button">Ampliar ↗</button>
+            </div>
+            <div class="explorer-frame">
+              <img
+                class="explorer-image"
+                src="IMG/assets/Gerador%20de%20payload.png"
+                width="1910"
+                height="1372"
+                alt="Interface do gerador de JSON com dados PF e PJ, instituição, execução e payload"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <button
+                class="details-toggle"
+                type="button"
+                aria-expanded="false"
+              >
+                Explorar os 14 pontos <span aria-hidden="true">+</span>
+              </button>
+              <div class="decision-groups" hidden>
+                <article class="decision-group">
+                  <h3>Dados de quem participa do teste</h3>
+                  <ul>
+                    <li>
+                      <span class="point">01–03</span>O bloco PF mantém nome,
+                      CPF e dados bancários no mesmo contexto.
+                    </li>
+                    <li>
+                      <span class="point">04–06</span>O bloco PJ separa empresa,
+                      CNPJ e dados bancários sem misturar naturezas distintas.
+                    </li>
+                  </ul>
+                </article>
+                <article class="decision-group">
+                  <h3>Instituição e execução trabalham juntas</h3>
+                  <ul>
+                    <li>
+                      <span class="point">07–09</span>Marca, AS-ID e segmento
+                      estruturam o contexto da instituição.
+                    </li>
+                    <li>
+                      <span class="point">10–12</span>Tipo de payload,
+                      Test/Retest e ciclo descrevem a execução antes de gerar.
+                    </li>
+                  </ul>
+                </article>
+                <article class="decision-group">
+                  <h3>Continuidade da jornada</h3>
+                  <ul>
+                    <li>
+                      <span class="point">13</span>Gerar e consultar orientações
+                      permanecem próximos da configuração.
+                    </li>
+                    <li>
+                      <span class="point">14</span>O payload preparado segue
+                      para a execução na FVP.
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </figcaption>
+          </figure>
+          <div class="flow">
+            <span>Configurar</span><i>→</i><span>Gerar</span><i>→</i
+            ><span>Revisar</span><i>→</i><span>Copiar</span><i>→</i
+            ><span>Executar</span>
+          </div>
+        </section>
 
-<section class="module shell"><div class="module-heading"><p class="index">02 / 04</p><div><p class="eyebrow">Nomenclatura</p><h2>Padronização também chegou às evidências</h2><p>Informações da execução alimentam uma estrutura comum para logs e nomes de evidências, preservando variações como saldo, versão do app, erro e saldo zerado.</p></div></div>
-<figure class="image-explorer" data-image-explorer data-title="Nomenclatura" data-clean="IMG/assets/Nomenclatura.png" data-anatomy="IMG/assets/Nomenclatura%20-%20anatomia%20do%20projeto.png" data-clean-alt="Interface do gerador de nomenclatura e evidências" data-anatomy-alt="A mesma interface de nomenclatura com nove anotações numeradas explicadas abaixo" style="--image-ratio:1.46"><div class="explorer-toolbar"><div class="view-switch" role="group" aria-label="Visualização de nomenclatura"><button type="button" data-view="interface" aria-pressed="true">Interface</button><button type="button" data-view="anatomy" aria-pressed="false" hidden>Anatomia da solução</button></div><button class="expand-button" type="button">Ampliar ↗</button></div><div class="explorer-frame"><img class="explorer-image" src="IMG/assets/Nomenclatura.png" width="1528" height="968" alt="Interface do gerador de nomenclatura e evidências" loading="lazy"></div><figcaption><button class="details-toggle" type="button" aria-expanded="false">Explorar os 9 pontos <span aria-hidden="true">+</span></button><div class="decision-groups" hidden><article class="decision-group"><h3>Contexto antes do nome</h3><ul><li><span class="point">01–03</span>O módulo conecta navegação, teste realizado e marca.</li><li><span class="point">04–07</span>Sistema operacional, segmento, data e status completam a identificação.</li></ul></article><article class="decision-group"><h3>Resultado pronto para continuar</h3><ul><li><span class="point">08</span>A geração consolida os dados informados.</li><li><span class="point">09</span>Variações de evidência permanecem disponíveis para copiar.</li></ul></article></div></figcaption></figure></section>
+        <section class="module shell">
+          <div class="module-heading">
+            <p class="index">02 / 04</p>
+            <div>
+              <p class="eyebrow">Nomenclatura</p>
+              <h2>Padronização também chegou às evidências</h2>
+              <p>
+                Informações da execução alimentam uma estrutura comum para logs
+                e nomes de evidências, preservando variações como saldo, versão
+                do app, erro e saldo zerado.
+              </p>
+            </div>
+          </div>
+          <figure
+            class="image-explorer"
+            data-image-explorer
+            data-title="Nomenclatura"
+            data-clean="IMG/assets/Nomenclatura.png"
+            data-anatomy="IMG/assets/Nomenclatura%20-%20anatomia%20do%20projeto.png"
+            data-clean-alt="Interface do gerador de nomenclatura e evidências"
+            data-anatomy-alt="A mesma interface de nomenclatura com nove anotações numeradas explicadas abaixo"
+            style="--image-ratio: 1.46"
+          >
+            <div class="explorer-toolbar">
+              <div
+                class="view-switch"
+                role="group"
+                aria-label="Visualização de nomenclatura"
+              >
+                <button type="button" data-view="interface" aria-pressed="true">
+                  Interface</button
+                ><button
+                  type="button"
+                  data-view="anatomy"
+                  aria-pressed="false"
+                  hidden
+                >
+                  Anatomia da solução
+                </button>
+              </div>
+              <button class="expand-button" type="button">Ampliar ↗</button>
+            </div>
+            <div class="explorer-frame">
+              <img
+                class="explorer-image"
+                src="IMG/assets/Nomenclatura.png"
+                width="1528"
+                height="968"
+                alt="Interface do gerador de nomenclatura e evidências"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <button
+                class="details-toggle"
+                type="button"
+                aria-expanded="false"
+              >
+                Explorar os 9 pontos <span aria-hidden="true">+</span>
+              </button>
+              <div class="decision-groups" hidden>
+                <article class="decision-group">
+                  <h3>Contexto antes do nome</h3>
+                  <ul>
+                    <li>
+                      <span class="point">01–03</span>O módulo conecta
+                      navegação, teste realizado e marca.
+                    </li>
+                    <li>
+                      <span class="point">04–07</span>Sistema operacional,
+                      segmento, data e status completam a identificação.
+                    </li>
+                  </ul>
+                </article>
+                <article class="decision-group">
+                  <h3>Resultado pronto para continuar</h3>
+                  <ul>
+                    <li>
+                      <span class="point">08</span>A geração consolida os dados
+                      informados.
+                    </li>
+                    <li>
+                      <span class="point">09</span>Variações de evidência
+                      permanecem disponíveis para copiar.
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </figcaption>
+          </figure>
+        </section>
 
-<section class="module shell"><div class="module-heading"><p class="index">03 / 04</p><div><p class="eyebrow">Agendamentos</p><h2>Testes que não terminam no mesmo dia</h2><p>Marca, segmento, teste e período organizam o acompanhamento. Data final automática, cronograma detalhado e Google Calendar conectam preparação e continuidade.</p></div></div>
-<figure class="image-explorer" data-image-explorer data-title="Agendamentos" data-clean="IMG/assets/Agendamento.png" data-anatomy="IMG/assets/Agendamento%20-%20anatomia%20do%20projeto.png" data-clean-alt="Interface de agendamento de testes de longa duração" data-anatomy-alt="A mesma interface de agendamento com nove anotações numeradas explicadas abaixo" style="--image-ratio:1.73"><div class="explorer-toolbar"><div class="view-switch" role="group" aria-label="Visualização de agendamentos"><button type="button" data-view="interface" aria-pressed="true">Interface</button><button type="button" data-view="anatomy" aria-pressed="false" hidden>Anatomia da solução</button></div><button class="expand-button" type="button">Ampliar ↗</button></div><div class="explorer-frame"><img class="explorer-image" src="IMG/assets/Agendamento.png" width="1910" height="873" alt="Interface de agendamento de testes de longa duração" loading="lazy"></div><figcaption><button class="details-toggle" type="button" aria-expanded="false">Explorar os 9 pontos <span aria-hidden="true">+</span></button><div class="decision-groups" hidden><article class="decision-group"><h3>Contexto temporal conectado</h3><ul><li><span class="point">01–03</span>Marca, segmento e teste identificam o acompanhamento.</li><li><span class="point">04–06</span>Início, fim calculado e cronograma estruturam o período.</li></ul></article><article class="decision-group"><h3>Continuidade além da tela</h3><ul><li><span class="point">07–08</span>Salvar e integrar ao Google Calendar apoiam o acompanhamento.</li><li><span class="point">09</span>Agendamentos ativos centralizam o que continua em andamento.</li></ul></article></div></figcaption></figure></section>
+        <section class="module shell">
+          <div class="module-heading">
+            <p class="index">03 / 04</p>
+            <div>
+              <p class="eyebrow">Agendamentos</p>
+              <h2>Testes que não terminam no mesmo dia</h2>
+              <p>
+                Marca, segmento, teste e período organizam o acompanhamento.
+                Data final automática, cronograma detalhado e Google Calendar
+                conectam preparação e continuidade.
+              </p>
+            </div>
+          </div>
+          <figure
+            class="image-explorer"
+            data-image-explorer
+            data-title="Agendamentos"
+            data-clean="IMG/assets/Agendamento.png"
+            data-anatomy="IMG/assets/Agendamento%20-%20anatomia%20do%20projeto.png"
+            data-clean-alt="Interface de agendamento de testes de longa duração"
+            data-anatomy-alt="A mesma interface de agendamento com nove anotações numeradas explicadas abaixo"
+            style="--image-ratio: 1.73"
+          >
+            <div class="explorer-toolbar">
+              <div
+                class="view-switch"
+                role="group"
+                aria-label="Visualização de agendamentos"
+              >
+                <button type="button" data-view="interface" aria-pressed="true">
+                  Interface</button
+                ><button
+                  type="button"
+                  data-view="anatomy"
+                  aria-pressed="false"
+                  hidden
+                >
+                  Anatomia da solução
+                </button>
+              </div>
+              <button class="expand-button" type="button">Ampliar ↗</button>
+            </div>
+            <div class="explorer-frame">
+              <img
+                class="explorer-image"
+                src="IMG/assets/Agendamento.png"
+                width="1910"
+                height="873"
+                alt="Interface de agendamento de testes de longa duração"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <button
+                class="details-toggle"
+                type="button"
+                aria-expanded="false"
+              >
+                Explorar os 9 pontos <span aria-hidden="true">+</span>
+              </button>
+              <div class="decision-groups" hidden>
+                <article class="decision-group">
+                  <h3>Contexto temporal conectado</h3>
+                  <ul>
+                    <li>
+                      <span class="point">01–03</span>Marca, segmento e teste
+                      identificam o acompanhamento.
+                    </li>
+                    <li>
+                      <span class="point">04–06</span>Início, fim calculado e
+                      cronograma estruturam o período.
+                    </li>
+                  </ul>
+                </article>
+                <article class="decision-group">
+                  <h3>Continuidade além da tela</h3>
+                  <ul>
+                    <li>
+                      <span class="point">07–08</span>Salvar e integrar ao
+                      Google Calendar apoiam o acompanhamento.
+                    </li>
+                    <li>
+                      <span class="point">09</span>Agendamentos ativos
+                      centralizam o que continua em andamento.
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </figcaption>
+          </figure>
+        </section>
 
-<section class="module shell"><div class="module-heading"><p class="index">04 / 04</p><div><p class="eyebrow">Relatórios</p><h2>Padronizando a comunicação do resultado</h2><p>O cenário selecionado orienta um modelo que pode ser revisado antes de copiar. A estrutura apoia consistência sem substituir a análise do QA.</p></div></div>
-<figure class="image-explorer" data-image-explorer data-title="Relatórios" data-clean="IMG/assets/Relatorios.png" data-anatomy="IMG/assets/Relatorios%20-%20anatomia%20do%20projeto.png" data-clean-alt="Interface do gerador de relatórios com cenário, assinatura e prévia" data-anatomy-alt="A mesma interface de relatórios com quatro anotações numeradas explicadas abaixo" style="--image-ratio:1.97"><div class="explorer-toolbar"><div class="view-switch" role="group" aria-label="Visualização de relatórios"><button type="button" data-view="interface" aria-pressed="true">Interface</button><button type="button" data-view="anatomy" aria-pressed="false" hidden>Anatomia da solução</button></div><button class="expand-button" type="button">Ampliar ↗</button></div><div class="explorer-frame"><img class="explorer-image" src="IMG/assets/Relatorios.png" width="1910" height="873" alt="Interface do gerador de relatórios com cenário, assinatura e prévia" loading="lazy"></div><figcaption><button class="details-toggle" type="button" aria-expanded="false">Explorar os 4 pontos <span aria-hidden="true">+</span></button><div class="decision-groups" hidden><article class="decision-group"><h3>Da situação ao texto revisável</h3><ul><li><span class="point">01</span>O cenário do teste orienta o modelo utilizado.</li><li><span class="point">02</span>A assinatura preserva autoria no contexto do relatório.</li><li><span class="point">03–04</span>A prévia permite revisar antes de copiar o resultado.</li></ul></article></div></figcaption></figure><div class="flow"><span>Cenário</span><i>→</i><span>Modelo</span><i>→</i><span>Preview</span><i>→</i><span>Revisão</span><i>→</i><span>Copiar</span></div></section></div>
+        <section class="module shell">
+          <div class="module-heading">
+            <p class="index">04 / 04</p>
+            <div>
+              <p class="eyebrow">Relatórios</p>
+              <h2>Padronizando a comunicação do resultado</h2>
+              <p>
+                O cenário selecionado orienta um modelo que pode ser revisado
+                antes de copiar. A estrutura apoia consistência sem substituir a
+                análise do QA.
+              </p>
+            </div>
+          </div>
+          <figure
+            class="image-explorer"
+            data-image-explorer
+            data-title="Relatórios"
+            data-clean="IMG/assets/Relatorios.png"
+            data-anatomy="IMG/assets/Relatorios%20-%20anatomia%20do%20projeto.png"
+            data-clean-alt="Interface do gerador de relatórios com cenário, assinatura e prévia"
+            data-anatomy-alt="A mesma interface de relatórios com quatro anotações numeradas explicadas abaixo"
+            style="--image-ratio: 1.97"
+          >
+            <div class="explorer-toolbar">
+              <div
+                class="view-switch"
+                role="group"
+                aria-label="Visualização de relatórios"
+              >
+                <button type="button" data-view="interface" aria-pressed="true">
+                  Interface</button
+                ><button
+                  type="button"
+                  data-view="anatomy"
+                  aria-pressed="false"
+                  hidden
+                >
+                  Anatomia da solução
+                </button>
+              </div>
+              <button class="expand-button" type="button">Ampliar ↗</button>
+            </div>
+            <div class="explorer-frame">
+              <img
+                class="explorer-image"
+                src="IMG/assets/Relatorios.png"
+                width="1910"
+                height="873"
+                alt="Interface do gerador de relatórios com cenário, assinatura e prévia"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <button
+                class="details-toggle"
+                type="button"
+                aria-expanded="false"
+              >
+                Explorar os 4 pontos <span aria-hidden="true">+</span>
+              </button>
+              <div class="decision-groups" hidden>
+                <article class="decision-group">
+                  <h3>Da situação ao texto revisável</h3>
+                  <ul>
+                    <li>
+                      <span class="point">01</span>O cenário do teste orienta o
+                      modelo utilizado.
+                    </li>
+                    <li>
+                      <span class="point">02</span>A assinatura preserva autoria
+                      no contexto do relatório.
+                    </li>
+                    <li>
+                      <span class="point">03–04</span>A prévia permite revisar
+                      antes de copiar o resultado.
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </figcaption>
+          </figure>
+          <div class="flow">
+            <span>Cenário</span><i>→</i><span>Modelo</span><i>→</i
+            ><span>Preview</span><i>→</i><span>Revisão</span><i>→</i
+            ><span>Copiar</span>
+          </div>
+        </section>
+      </div>
 
-<section class="section surface"><div class="shell"><div class="section-heading"><p class="eyebrow">Casos de uso</p><h2>O que o QA consegue realizar com a suíte.</h2><p>Em vez de operar páginas isoladas, o QA utiliza diferentes recursos para dar continuidade à mesma execução.</p></div><div class="ecosystem" aria-label="Casos de uso da QA Automation Suite"><div class="ecosystem-side"><span>Preparar os dados e o contexto do teste</span><span>Gerar um payload pronto para execução</span></div><div class="ecosystem-center">QA Automation Suite</div><div class="ecosystem-side"><span>Padronizar nomes e evidências</span><span>Acompanhar testes de longa duração</span><span>Revisar e comunicar o resultado</span></div></div><div class="flow" aria-label="Jornada apoiada pela suíte"><span>Preparar</span><i>→</i><span>Gerar</span><i>→</i><span>Executar</span><i>→</i><span>Evidenciar</span><i>→</i><span>Registrar</span><i>→</i><span>Acompanhar</span></div></div></section>
-<section id="resultados" class="section shell"><div class="section-heading"><p class="eyebrow">Impactos qualitativos</p><h2>Mais consistência ao longo da jornada.</h2><p>Sem métricas comprovadas, os resultados são apresentados como efeitos suportados pelo funcionamento documentado.</p></div><ul class="impact-list"><li>Centralização de tarefas recorrentes.</li><li>Menos preenchimentos repetitivos.</li><li>Nomenclaturas e comunicação mais consistentes.</li><li>Contextos PF/PJ organizados.</li><li>Regras técnicas incorporadas à interface.</li><li>Acompanhamento de testes de longa duração.</li></ul></section>
-<section class="section ink"><div class="shell split"><div><p class="eyebrow">Aprendizados</p><h2>O que esse projeto me ensinou</h2></div><div class="experience"><p>Uma solução interna não precisa nascer grande. A QA Automation Suite começou com um problema específico e incorporou recursos conforme novas necessidades apareceram. O principal aprendizado foi deixar de olhar para tarefas isoladas e enxergar a jornada operacional como um sistema conectado.</p></div></div></section>
-<section class="contact"><div class="shell"><p class="eyebrow">Vamos construir o próximo projeto</p><h2>Tem um desafio complexo? Podemos transformá-lo em uma experiência mais clara, consistente e eficiente.</h2><p>Se você procura alguém capaz de conectar Produto, UX, regras de negócio, tecnologia e qualidade, vamos conversar.</p><div class="actions"><a class="button button-light" href="https://wa.me/5511956400451?text=Ol%C3%A1%2C%20vi%20o%20case%20QA%20Automation%20Suite%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer">Fale comigo ↗</a><a class="text-link" href="index.html#projetos-profissionais">Conhecer outros projetos profissionais →</a></div></div></section></main>
-<footer class="footer shell"><a href="index.html#projetos">← Voltar para projetos</a><p>© <span data-current-year>2026</span> Alan Teixeira</p></footer>
-<dialog id="image-lightbox" class="lightbox" aria-labelledby="lightbox-title"><div class="lightbox-inner"><header class="lightbox-header"><p id="lightbox-title" data-lightbox-title>Imagem ampliada</p><p class="lightbox-hint">Passe o mouse, toque ou use Tab nos pontos numerados.</p><button class="lightbox-close" type="button">Fechar <span aria-hidden="true">×</span></button></header><div class="lightbox-stage"><div class="lightbox-canvas"><img src="" alt=""><div class="hotspot-layer" aria-label="Pontos da anatomia" hidden></div></div></div></div></dialog></body></html>
+      <section class="section surface">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="eyebrow">Casos de uso</p>
+            <h2>O que o QA consegue realizar com a suíte.</h2>
+            <p>
+              Em vez de operar páginas isoladas, o QA utiliza diferentes
+              recursos para dar continuidade à mesma execução.
+            </p>
+          </div>
+          <div
+            class="ecosystem"
+            aria-label="Casos de uso da QA Automation Suite"
+          >
+            <div class="ecosystem-side">
+              <span>Preparar os dados e o contexto do teste</span
+              ><span>Gerar um payload pronto para execução</span>
+            </div>
+            <div class="ecosystem-center">QA Automation Suite</div>
+            <div class="ecosystem-side">
+              <span>Padronizar nomes e evidências</span
+              ><span>Acompanhar testes de longa duração</span
+              ><span>Revisar e comunicar o resultado</span>
+            </div>
+          </div>
+          <div class="flow" aria-label="Jornada apoiada pela suíte">
+            <span>Preparar</span><i>→</i><span>Gerar</span><i>→</i
+            ><span>Executar</span><i>→</i><span>Evidenciar</span><i>→</i
+            ><span>Registrar</span><i>→</i><span>Acompanhar</span>
+          </div>
+        </div>
+      </section>
+      <section id="resultados" class="section shell">
+        <div class="section-heading">
+          <p class="eyebrow">Impactos qualitativos</p>
+          <h2>Mais consistência ao longo da jornada.</h2>
+          <p>
+            Sem métricas comprovadas, os resultados são apresentados como
+            efeitos suportados pelo funcionamento documentado.
+          </p>
+        </div>
+        <ul class="impact-list">
+          <li>Centralização de tarefas recorrentes.</li>
+          <li>Menos preenchimentos repetitivos.</li>
+          <li>Nomenclaturas e comunicação mais consistentes.</li>
+          <li>Contextos PF/PJ organizados.</li>
+          <li>Regras técnicas incorporadas à interface.</li>
+          <li>Acompanhamento de testes de longa duração.</li>
+        </ul>
+      </section>
+      <section class="section ink">
+        <div class="shell split">
+          <div>
+            <p class="eyebrow">Aprendizados</p>
+            <h2>O que esse projeto me ensinou</h2>
+          </div>
+          <div class="experience">
+            <p>
+              Uma solução interna não precisa nascer grande. A QA Automation
+              Suite começou com um problema específico e incorporou recursos
+              conforme novas necessidades apareceram. O principal aprendizado
+              foi deixar de olhar para tarefas isoladas e enxergar a jornada
+              operacional como um sistema conectado.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="contact">
+        <div class="shell">
+          <p class="eyebrow">Vamos construir o próximo projeto</p>
+          <h2>
+            Tem um desafio complexo? Podemos transformá-lo em uma experiência
+            mais clara, consistente e eficiente.
+          </h2>
+          <p>
+            Se você procura alguém capaz de conectar Produto, UX, regras de
+            negócio, tecnologia e qualidade, vamos conversar.
+          </p>
+          <div class="actions">
+            <a
+              class="button button-light"
+              href="https://wa.me/5511956400451?text=Ol%C3%A1%2C%20vi%20o%20case%20QA%20Automation%20Suite%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto."
+              target="_blank"
+              rel="noopener noreferrer"
+              >Fale comigo ↗</a
+            ><a class="text-link" href="index.html#projetos-profissionais"
+              >Conhecer outros projetos profissionais →</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer shell">
+      <a href="index.html#projetos">← Voltar para projetos</a>
+      <p>© <span data-current-year>2026</span> Alan Teixeira</p>
+    </footer>
+    <dialog
+      id="image-lightbox"
+      class="lightbox"
+      aria-labelledby="lightbox-title"
+    >
+      <div class="lightbox-inner">
+        <header class="lightbox-header">
+          <p id="lightbox-title" data-lightbox-title>Imagem ampliada</p>
+          <p class="lightbox-hint">
+            Passe o mouse, toque ou use Tab nos pontos numerados.
+          </p>
+          <button class="lightbox-close" type="button">
+            Fechar <span aria-hidden="true">×</span>
+          </button>
+        </header>
+        <div class="lightbox-stage">
+          <div class="lightbox-canvas">
+            <img src="" alt="" />
+            <div
+              class="hotspot-layer"
+              aria-label="Pontos da anatomia"
+              hidden
+            ></div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>
