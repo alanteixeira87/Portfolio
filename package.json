@@ -1,7 +1,7 @@
 {
   "name": "portfolio-main",
   "version": "1.0.0",
-  "description": "Portfólio estático com o produto real QA Automation Suite e o estudo de caso Paketá, publicável diretamente no GitHub Pages.",
+  "description": "Portfólio estático com a QA Automation Suite, produto real utilizado pelo time de Serviços do Open Finance, e o estudo de caso Paketá.",
   "main": "index.js",
   "directories": {
     "test": "tests"
