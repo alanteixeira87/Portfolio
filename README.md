@@ -1,6 +1,6 @@
 # Portfólio — Alan Teixeira
 
-Site estático em HTML, CSS e JavaScript, publicável diretamente no GitHub Pages. A home está em `index.html`, o produto real implementado na operação está em `qa-automation-suite.html` e o estudo de caso está em `paketa.html`.
+Site estático em HTML, CSS e JavaScript, publicável diretamente no GitHub Pages. A home está em `index.html`, o produto real implementado e utilizado pelo time de Serviços do Open Finance está em `qa-automation-suite.html` e o estudo de caso está em `paketa.html`.
 
 ## Adicionar um projeto
 
