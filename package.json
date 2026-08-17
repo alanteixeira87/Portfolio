@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-main",
+  "version": "1.0.0",
+  "description": "Site estático em HTML, CSS e JavaScript, publicável diretamente no GitHub Pages. A home está em `index.html` e o case principal em `qa-automation-suite.html`.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "playwright test tests/portfolio.spec.js --browser=chromium"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}
