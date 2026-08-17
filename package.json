@@ -1,7 +1,7 @@
 {
   "name": "portfolio-main",
   "version": "1.0.0",
-  "description": "Site estático em HTML, CSS e JavaScript, publicável diretamente no GitHub Pages. A home está em `index.html` e o case principal em `qa-automation-suite.html`.",
+  "description": "Portfólio estático com o produto real QA Automation Suite e o estudo de caso Paketá, publicável diretamente no GitHub Pages.",
   "main": "index.js",
   "directories": {
     "test": "tests"
