@@ -1,10 +1,10 @@
 # Portfólio — Alan Teixeira
 
-Site estático em HTML, CSS e JavaScript, publicável diretamente no GitHub Pages. A home está em `index.html` e o case principal em `qa-automation-suite.html`.
+Site estático em HTML, CSS e JavaScript, publicável diretamente no GitHub Pages. A home está em `index.html`, o produto real implementado na operação está em `qa-automation-suite.html` e o estudo de caso está em `paketa.html`.
 
-## Adicionar um case
+## Adicionar um projeto
 
-Crie uma página HTML própria a partir da estrutura semântica do case existente, adicione o link à seção “Projetos selecionados” da home e mantenha caminhos relativos para que a publicação em subdiretórios do GitHub Pages continue funcionando.
+Identifique primeiro se o material representa um produto implementado, um estudo de caso ou um experimento. Crie uma página HTML própria, declare essa natureza com clareza na abertura e nos metadados, adicione o link à seção de projetos da home e mantenha caminhos relativos para que a publicação em subdiretórios do GitHub Pages continue funcionando.
 
 ## Imagens de interface e anatomia
 
